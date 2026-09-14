@@ -1,0 +1,199 @@
+SENTINEL | Parrish Lyon | PL-SENTINEL-20260914
+Copyright (c) 2026 Parrish Lyon. All rights reserved.
+
+Ledgewell SENTINEL file map
+
+Backend
+
+backend/__init__.py
+Marks the backend folder as a Python package so package-style imports work on Vercel and other environments.
+
+backend/app.py
+Main Flask entrypoint. Creates the app, sets the frontend static folder, and registers all routes.
+
+backend/routes.py
+All HTTP routes live here.
+- /
+- /upload
+- /mapping/preview
+- /health
+- /config
+- /set_mode
+
+backend/config.py
+Central runtime config.
+Contains:
+- thresholds
+- weights
+- VPN / IP ranges
+- mapping confidence threshold
+- chunk size and memory settings
+
+backend/csv_reader.py
+Reads CSV files with Polars, including chunked loading for large files.
+
+backend/schema_mapper.py
+Maps uploaded CSV columns into the internal schema.
+Main responsibility:
+- detect known templates
+- heuristic / fuzzy mapping
+- build mapping report
+- output standardised dataframe
+
+backend/utils.py
+Shared helper functions.
+Contains:
+- IP reputation checks
+- device category detection
+- email risk analysis
+- timestamp normalisation
+
+backend/fraud_detector.py
+Core fraud analysis engine.
+Contains:
+- preprocessing
+- card testing detection
+- account takeover detection
+- BIN attack detection
+- device anomaly detection
+- clustering
+- risk scoring
+- final analysis payload
+
+Frontend
+
+frontend/index.html
+Main UI shell.
+Contains:
+- layout structure
+- all DOM sections and IDs
+- script and stylesheet includes
+
+frontend/styles/index.css
+All styling for the interface.
+Use this file for:
+- layout fixes
+- spacing
+- clipping / overflow issues
+- sidebar alignment
+- cards
+- tables
+- modal
+- charts and map containers
+
+frontend/js/state.js
+Global frontend state and shared page/view mapping.
+
+frontend/js/utils.js
+Frontend helpers.
+Contains:
+- status bar updates
+- formatting helpers
+- score colour helpers
+- audit logging helper
+
+frontend/js/app.js
+Main UI wiring.
+Contains:
+- navigation switching
+- modal open / close logic
+- top-level event wiring
+- demo toggle
+- tab switching
+
+frontend/js/upload.js
+Upload flow.
+Contains:
+- file select / drag-drop
+- upload progress UI
+- schema preview
+- /upload fetch
+- analysis result handoff
+
+frontend/js/dashboard.js
+Dashboard summary rendering.
+Contains:
+- ticker population
+- summary cards
+- neural score display
+- sidebar stats
+- headline metrics
+
+frontend/js/transactions.js
+Transaction tables.
+Contains:
+- flagged transaction table
+- full transaction log
+- search / sort / filter rendering
+
+frontend/js/analytics.js
+Charts and analytics view.
+Contains:
+- Chart.js setup
+- risk pie
+- trend line
+- value by tier
+- signal frequency
+- hourly activity
+
+frontend/js/behavioral.js
+Behavioural intelligence rendering.
+
+frontend/js/velocity.js
+Velocity engine rendering.
+
+frontend/js/clustering.js
+Fraud ring / cluster rendering.
+
+frontend/js/ip_intel.js
+IP intelligence rendering and Leaflet map setup.
+
+frontend/js/entity_graph.js
+Canvas entity graph rendering.
+
+frontend/js/regulatory.js
+Regulatory / compliance section rendering.
+
+frontend/js/sar.js
+SAR draft generation UI logic.
+
+frontend/js/watchlist.js
+Watchlist rendering and watchlist data shaping.
+
+frontend/js/reports.js
+Report generation preview and report history logic.
+
+frontend/js/cases.js
+Case management rendering and auto-case seeding.
+
+frontend/js/auditlog.js
+Audit log rendering.
+
+frontend/js/integrity.js
+Data integrity rendering.
+
+Quick debugging guide
+
+If the page loads but looks broken:
+Check frontend/styles/index.css
+
+If navigation or buttons do nothing:
+Check frontend/js/app.js
+
+If upload fails:
+Check frontend/js/upload.js and backend/routes.py
+
+If schema mapping looks wrong:
+Check backend/schema_mapper.py
+
+If fraud flags look wrong:
+Check backend/fraud_detector.py
+
+If charts do not appear:
+Check frontend/js/analytics.js
+
+If maps do not appear:
+Check frontend/js/ip_intel.js
+
+If a specific page is broken:
+Find the matching file in frontend/js/ with the same feature name

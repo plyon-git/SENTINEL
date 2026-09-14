@@ -1,0 +1,8 @@
+# SENTINEL | Parrish Lyon | PL-SENTINEL-20260914
+# Copyright (c) 2026 Parrish Lyon. All rights reserved.
+
+flask
+flask-cors
+polars
+numpy
+werkzeug

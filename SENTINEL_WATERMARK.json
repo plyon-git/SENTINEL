@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "project": "SENTINEL",
+  "owner": "Parrish Lyon",
+  "watermark_id": "PL-SENTINEL-20260914",
+  "copyright": "Copyright (c) 2026 Parrish Lyon. All rights reserved.",
+  "repository": "https://github.com/plyon-git/SENTINEL",
+  "scope": "Six root files supplied by Parrish Lyon. Backend and frontend directories are not included in this upload.",
+  "vercel_note": "vercel.json is kept byte-for-byte unchanged; its watermark is this ownership record bound to its SHA-256.",
+  "integrity_note": "Checksums detect changes relative to this manifest. They are not a digital signature, proof of authorship, or copy prevention.",
+  "files": {
+    "app.py": {
+      "source_filename": "app(2).py",
+      "source_sha256": "64b8d1726c929f08204fd0c9e99965630b78a69fe8c072ddefc4e961fda10b7a",
+      "sha256": "1bdce2170ce69cfa2d75800b192619732968aff51f4a982b120ec707802f5aff"
+    },
+    "generate_orders_large.py": {
+      "source_filename": "generate_orders_large(2).py",
+      "source_sha256": "536da9e2ca511d71785485fc0b0ebbe36d772d5992e5e0fbdf18f72935cc969f",
+      "sha256": "dadf9b18d2c015798a3acfd777fd5b049c1d56d6b326e38d443fd61b62ed41ce"
+    },
+    "ledgewell_file_map.txt": {
+      "source_filename": "ledgewell_file_map(2).txt",
+      "source_sha256": "fd1d1b2b381c85b72eefe267a7c334a49c7b82c292700ee775c4698545bb0817",
+      "sha256": "b99397a677646deb1f582498086bcb2286cd2470f6f5249e124508df51605720"
+    },
+    "README.md": {
+      "source_filename": "README(5).md",
+      "source_sha256": "09f874d98f2c09489eee17daf948c7ffd924a86787739fc050df8fcb24139abf",
+      "sha256": "32c1016fba8c9b8cbe035cb935bd7e8f30e77c02e4a23e8389d47882c5619f53"
+    },
+    "requirements.txt": {
+      "source_filename": "requirements(2).txt",
+      "source_sha256": "cc380b7499d524df5af19b6dac8a665bc9dd3112d01162c5f809aa234b0c01d4",
+      "sha256": "66eb5997776276f42d9455c7e184881825ea64788d48587ecf3eeddf44528240"
+    },
+    "vercel.json": {
+      "source_filename": "vercel(2).json",
+      "source_sha256": "1c361c12b6130fc595d18babf1a3cd5c769d3947f54439e27a191f275d6ec35a",
+      "sha256": "1c361c12b6130fc595d18babf1a3cd5c769d3947f54439e27a191f275d6ec35a"
+    }
+  }
+}
