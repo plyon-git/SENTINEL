@@ -1,0 +1,262 @@
+<!-- SENTINEL | Parrish Lyon | PARRISH-LYON-SENTINEL-2026
+     Copyright (c) 2026 Parrish Lyon. All rights reserved. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Parrish Lyon">
+    <meta name="sentinel-watermark" content="PARRISH-LYON-SENTINEL-2026">
+    <meta name="sentinel-build" content="PL-SENTINEL-20260914-33b0697a">
+    <script type="module" src="./js/identity.js"></script>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>LEDGEWELL SENTINEL</title>
+
+    <!-- Parrish Lyon distribution icon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon/sentinel.svg">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <meta name="theme-color" content="#020508">
+
+    <!-- Resource hints: establish early connections to third-party origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+
+    <!-- Fonts (non-blocking, display=swap keeps text visible during font load) -->
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" media="print" onload="this.media='all'"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap">
+    </noscript>
+
+    <!-- Icons (non-blocking) -->
+    <link rel="stylesheet" media="print" onload="this.media='all'"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </noscript>
+
+    <!-- Maps CSS (non-blocking; only needed on IP-intel page) -->
+    <link rel="stylesheet" media="print" onload="this.media='all'"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" media="print" onload="this.media='all'"
+        href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" media="print" onload="this.media='all'"
+        href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <noscript>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    </noscript>
+
+    <!-- Libraries: defer so they download in parallel without blocking HTML parsing -->
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script defer src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+    <!-- Local styles (critical — load synchronously) -->
+    <link rel="stylesheet" href="styles/tokens.css">
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/status-bar.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/forms.css">
+    <link rel="stylesheet" href="styles/modal.css">
+    <link rel="stylesheet" href="styles/sar.css">
+    <link rel="stylesheet" href="styles/reports.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link rel="stylesheet" href="styles/utilities.css">
+
+    <style>
+        /* Critical inline styles for fast loading */
+        #page-container {
+            display: none;
+        }
+
+        #page-container.loaded {
+            display: block;
+        }
+
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-void);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-screen.hidden {
+            display: none;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border-dim);
+            border-top-color: var(--red-hi);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Ensure logo text never clips */
+        .logo-name,
+        .logo-ver {
+            overflow: visible !important;
+            text-overflow: clip !important;
+            white-space: nowrap !important;
+        }
+
+        .logo-area {
+            overflow: visible !important;
+        }
+
+        .logo-area>div:last-child {
+            overflow: visible !important;
+        }
+
+        /* Fix blacksite alignment */
+        .bw-header i,
+        .bw-header span {
+            vertical-align: middle;
+            line-height: 1;
+        }
+
+        /* Sidebar transitions */
+        #sidebar {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-overlay {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Page Container (hidden until components load) -->
+    <div id="page-container">
+        <!-- STATUS BAR -->
+        <div id="statusBarContainer"></div>
+
+        <!-- TICKER BAR -->
+        <div id="tickerBarContainer"></div>
+
+        <div id="layout">
+            <!-- SIDEBAR -->
+            <div id="sidebarContainer"></div>
+
+            <!-- MAIN CONTENT -->
+            <div id="main">
+                <!-- TOP BAR -->
+                <div id="topBarContainer"></div>
+
+                <!-- PAGE VIEWS -->
+                <div id="pageViewsContainer"></div>
+            </div>
+        </div>
+
+        <!-- MODAL -->
+        <div id="modalContainer"></div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    </div>
+
+    <!-- Application Scripts -->
+    <script type="module">
+        import { loadComponents, loadPage, initApp } from './js/router.js';
+        import { initUpload } from './js/upload.js';
+        import { initDashboard } from './js/dashboard.js';
+        import { initTransactions } from './js/transactions.js';
+        import { initModal } from './js/modal.js';
+        import { initIPIntel } from './js/ipintel.js';
+        import { initSAR } from './js/sar.js';
+        import { initWatchlist } from './js/watchlist.js';
+        import { initReports } from './js/reports.js';
+        import { initCases } from './js/cases.js';
+        import { initAuditLog } from './js/auditlog.js';
+
+        import state, { restoreAnalysisUI, logAudit } from './js/state.js';
+
+        console.log('📊 State loaded - Analysis:', state.analysisResult ? 'Present' : 'None');
+
+        (async function () {
+            try {
+                console.log('🚀 LEDGEWELL SENTINEL · Loading components...');
+
+                await loadComponents();
+                console.log('✅ Components loaded');
+
+                await initApp();
+
+                initUpload();
+                initDashboard();
+                initTransactions();
+                initModal();
+                initIPIntel();
+                initSAR();
+                initWatchlist();
+                initReports();
+                initCases();
+                initAuditLog();
+
+                console.log('✅ All modules initialized');
+
+                document.getElementById('loadingScreen').classList.add('hidden');
+                document.getElementById('page-container').classList.add('loaded');
+
+                await loadPage('dashboard');
+
+                restoreAnalysisUI();
+
+                logAudit('system', 'Session started · LEDGEWELL SENTINEL v8.0');
+                console.log('🎯 LEDGEWELL SENTINEL · Ready');
+
+            } catch (error) {
+                console.error('❌ Failed to initialize:', error);
+                document.getElementById('loadingScreen').innerHTML =
+                    '<div style="color:var(--red-hi);text-align:center;padding:20px;">' +
+                    '<i class="fas fa-exclamation-triangle" style="font-size:32px;margin-bottom:16px;"></i><br>' +
+                    'Failed to load application.<br>' +
+                    '<small style="color:var(--text-muted);">' + error.message + '</small><br><br>' +
+                    '<button onclick="location.reload()" style="padding:8px 16px;background:var(--red-core);border:none;color:white;border-radius:20px;cursor:pointer;">Retry</button>' +
+                    '</div>';
+            }
+        })();
+    </script>
+</body>
+
+</html>

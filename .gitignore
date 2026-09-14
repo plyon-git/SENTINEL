@@ -1,0 +1,31 @@
+# Local environments and credentials
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Generated caches and build output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+.vercel/
+dist/
+build/
+.DS_Store
+
+# Never publish uploaded transaction data or generated reports
+uploads/
+data/
+exports/
+*.csv
+*.sqlite
+*.db
+*.log
